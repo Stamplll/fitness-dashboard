@@ -86,3 +86,5 @@ filtered = df[
     (df["date"] >= pd.to_datetime(start_date)) &
     (df["date"] <= pd.to_datetime(end_date))
 ]
+
+total_activities = len(filtered)
