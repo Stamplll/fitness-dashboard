@@ -100,3 +100,13 @@ show_all = st.checkbox("แสดงข้อมูลทั้งหมด (ไ
 display_df = df if show_all else filtered
 st.caption(f"จำนวนแถวที่แสดง: {len(display_df)}")
 calories_per_day = calories_per_day.sort_values("date")
+
+fig_scatter = px.scatter(
+    filtered,
+    x="minutes",
+    y="calories",
+    color="sport",
+    size="calories",
+    trendline="ols",
+    hover_data=["date"],
+)
