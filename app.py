@@ -81,3 +81,8 @@ start_date, end_date = st.sidebar.date_input(
     "เลือกช่วงวันที่",
     [min_date, max_date],
 )
+filtered = df[
+    (df["sport"].isin(selected_sports)) &
+    (df["date"] >= pd.to_datetime(start_date)) &
+    (df["date"] <= pd.to_datetime(end_date))
+]
