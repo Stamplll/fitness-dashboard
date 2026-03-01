@@ -91,3 +91,5 @@ total_activities = len(filtered)
 avg_calories = filtered["calories"].mean()
 avg_distance = filtered["distance_km"].mean()
 avg_minutes = filtered["minutes"].mean()
+
+st.subheader("📋 Data Preview")
