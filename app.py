@@ -22,6 +22,23 @@ for s in sports:
 
 filtered = df[df["sport"].isin(selected_sports)]
 
+# Empty state
+if filtered.empty:
+    st.warning("กรุณาเลือกอย่างน้อย 1 ประเภทกีฬา")
+    st.stop()
+
+# KPI
+total_calories = filtered["calories"].sum()
+total_distance = filtered["distance_km"].sum()
+total_minutes = filtered["minutes"].sum()
+
+col1, col2, col3 = st.columns(3)
+col1.metric("🔥 Calories", f"{total_calories:.0f}")
+col2.metric("📏 Distance (km)", f"{total_distance:.1f}")
+col3.metric("⏱ Minutes", f"{total_minutes:.0f}")
+
+st.divider()
+
 # Charts
 st.subheader("🔥 แคลอรี่ที่เผาผลาญต่อวัน (Bar Chart)")
 calories_per_day = filtered.groupby("date")["calories"].sum().reset_index()
