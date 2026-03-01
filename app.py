@@ -90,7 +90,6 @@ fig_scatter = px.scatter(
     y="calories",
     color="sport",
     size="calories",
-    trendline="ols",
     hover_data=["date"],
 )
 st.plotly_chart(fig_scatter, use_container_width=True)
