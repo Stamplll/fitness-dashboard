@@ -63,3 +63,5 @@ st.plotly_chart(fig_scatter, use_container_width=True)
 
 st.subheader("📋 ตารางข้อมูล")
 st.dataframe(filtered)
+
+st.subheader("📊 KPI Summary")
