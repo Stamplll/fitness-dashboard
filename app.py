@@ -1,0 +1,48 @@
+import pandas as pd
+import streamlit as st
+import plotly.express as px
+
+st.set_page_config(page_title="Fitness Tracker", layout="wide")
+
+st.title("🏃‍♂️ Fitness Tracker Dashboard")
+st.write("เลือกประเภทกีฬาเพื่อกรองข้อมูล แล้วกราฟจะปรับตาม")
+
+# Load data
+df = pd.read_csv("data.csv")
+df["date"] = pd.to_datetime(df["date"])
+
+# Filter by sport
+sports = df["sport"].unique().tolist()
+selected_sports = []
+
+st.sidebar.header("ตัวกรองกีฬา")
+for s in sports:
+    if st.sidebar.checkbox(s, value=True):
+        selected_sports.append(s)
+
+filtered = df[df["sport"].isin(selected_sports)]
+
+# Charts
+st.subheader("🔥 แคลอรี่ที่เผาผลาญต่อวัน (Bar Chart)")
+calories_per_day = filtered.groupby("date")["calories"].sum().reset_index()
+fig_bar = px.bar(calories_per_day, x="date", y="calories", color="date")
+st.plotly_chart(fig_bar, use_container_width=True)
+
+st.subheader("📈 ระยะทางรวมต่อวัน (Line Chart)")
+distance_per_day = filtered.groupby("date")["distance_km"].sum().reset_index()
+fig_line = px.line(distance_per_day, x="date", y="distance_km", markers=True)
+st.plotly_chart(fig_line, use_container_width=True)
+
+st.subheader("🔹 เวลา vs แคลอรี่ (Scatter Plot)")
+fig_scatter = px.scatter(
+    filtered,
+    x="minutes",
+    y="calories",
+    color="sport",
+    size="distance_km",
+    hover_data=["date"],
+)
+st.plotly_chart(fig_scatter, use_container_width=True)
+
+st.subheader("📋 ตารางข้อมูล")
+st.dataframe(filtered)
