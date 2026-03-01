@@ -93,3 +93,5 @@ avg_distance = filtered["distance_km"].mean()
 avg_minutes = filtered["minutes"].mean()
 
 st.subheader("📋 Data Preview")
+display_df = filtered.copy()
+display_df = display_df.sort_values("date")
